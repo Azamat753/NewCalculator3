@@ -6,6 +6,7 @@
     android:orientation="vertical"
     android:padding="16dp"
     tools:context=".MainActivity">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="200dp">
@@ -41,17 +42,25 @@
             android:id="@+id/B"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:onClick="fragment_ch_Buttons"
             android:layout_weight="1"
+            android:onClick="fragment_ch_Buttons"
             android:text="B" />
 
         <Button
             android:id="@+id/H"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:onClick="fragment_ch_History"
             android:layout_weight="1"
+            android:onClick="fragment_ch_History"
             android:text="H" />
+
+        <Button
+            android:id="@+id/send"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:onClick="send"
+            android:text="s" />
 
 
     </LinearLayout>
@@ -59,25 +68,21 @@
     <FrameLayout
         android:id="@+id/container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent" />
 
     <fragment
         android:id="@+id/buttons_fragment"
+        android:name="com.example.newcalculator3.ButtonsFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:name="com.example.newcalculator3.ButtonsFragment"
         tools:layout="@layout/fragment_buttons" />
+
     <fragment
         android:id="@+id/history_fragment"
+        android:name="com.example.newcalculator3.HistoryFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:name="com.example.newcalculator3.HistoryFragment"
-        tools:layout="@layout/fragment_history"/>
-
-
-
-
-
+        tools:layout="@layout/fragment_history" />
 
 
 </LinearLayout>

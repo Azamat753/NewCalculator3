@@ -2,8 +2,11 @@ package com.example.newcalculator3;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,7 +21,10 @@ public class MainActivity extends AppCompatActivity {
     public static String operation_key = "OPERATION_KEY";
     public static String result_key = "RESULT_KEY";
     public static String rawOperand_key = "RAWOPERAND_KEY";
-
+    private ActionSender actionSender;
+    private RecyclerView recyclerView;
+    private HistoryAdapter adapter;
+    private Fragment fragment;
 
     TextView textView;
 
@@ -27,11 +33,18 @@ public class MainActivity extends AppCompatActivity {
     Double secondValues;
     String operation;
     Double result;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         textView = findViewById(R.id.result_txt_view);
+
+        recyclerView = findViewById(R.id.recycler_view);
+        adapter = new HistoryAdapter();
+        recyclerView.setAdapter(adapter);
+        RecyclerView.LayoutManager manager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(manager);
 
 
         if (savedInstanceState != null) {
@@ -42,6 +55,12 @@ public class MainActivity extends AppCompatActivity {
             result = savedInstanceState.getDouble(result_key);
             rawOperand = savedInstanceState.getString(rawOperand_key);
         }
+        fragment= new HistoryFragment();
+        getSupportFragmentManager().beginTransaction().replace(R.id.container ,fragment).commit();
+    }
+    public void passVal(ActionSender fragmentCommunicator) {
+        this.actionSender = fragmentCommunicator;
+
     }
 
 
@@ -198,6 +217,8 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
-
+    public void send(View view) {
+        actionSender.send(textView.getText().toString());
+    }
 }
 
